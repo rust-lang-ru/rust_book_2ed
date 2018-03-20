@@ -166,7 +166,7 @@ fn main() {
 
 
 Один из возможных вариантов решения. Остановить длинный или бесконечный цикл, зависшее
-консольное приложение можно комбинацией клавиш Cntr^C:
+консольное приложение можно комбинацией клавиш `Ctrl-C`:
 
 ```rust
 fn main() {
@@ -216,19 +216,19 @@ fn main() {
 fn main() {
 
   let value = 98_222_000;
-  println!("value = {}",value);
+  println!("value = {}", value);
 
- let value = 0xff;
- println!("value = {}",value);
+  let value = 0xff;
+  println!("value = {}", value);
 
- let value = 0o77;
- println!("value = {}",value);
+  let value = 0o77;
+  println!("value = {}", value);
 
- let value = 0b1111_0000;
- println!("value = {}",value);
+  let value = 0b1111_0000;
+  println!("value = {}", value);
 
   let value = b'A';
- println!("value = {}",value);
+  println!("value = {}", value);
 
 }
 ```
@@ -251,7 +251,7 @@ fn main() {
     let mut value = 0o77;
     println!("value = {}", value);
     value = 0o_77;
-	  println!("value = {}", value);
+    println!("value = {}", value);
 
     let mut value = 0b1111_0000;
     println!("value = {}", value);
@@ -336,6 +336,8 @@ fn main() {
 
     let y: f32 = 3.0; // f32
 }
+
+```
 
 Очень важно знать предельные значения типов данных. Стандратная библиотек Rust
 проелагает подробную информацию по каждому типу данных.
@@ -641,7 +643,7 @@ fn main() {
 ```rust
 let months = ["January", "February", "March", "April", "May", "June", "July",
            "August", "September", "October", "November", "December"];
- println!("a is: {:?}", months);
+println!("a is: {:?}", months);
 ```
 
 ##### Организация доступа к элементам массива
