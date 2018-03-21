@@ -15,7 +15,7 @@
 * *Хеш таблица* позволяет сопоставлять значение ключу. Это реализация структуры *map*.
 
 Для того, чтобы узнать о других видах коллекций, пожалуйста, перейдите на страницу
-документации [the documentation][collections].
+[документации][collections].
 
 [collections]: https://doc.rust-lang.org/std/collections/index.html
 
