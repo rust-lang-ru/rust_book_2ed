@@ -2,11 +2,12 @@
 
 *Методы* имею множество схожих черт с функциями.
 Сходства:
-- Определение начинается с ключевого слова `fn`, далее идёт имя.
-- Они имеют параметры и возвращаемое значение.
-- Они содржат код, который выполняется, когда метод вызывается.
+- определение начинается с ключевого слова `fn`, далее идёт имя;
+- они имеют параметры и возвращаемое значение;
+- они содржат код, который выполняется, когда метод вызывается.
+
 Различия:
-- они определяются в контексте структур (или перечислений или типажей, которые мы будем обсуждать в глава 6 и 17).
+- они определяются в контексте структур (или перечислений или типажей, которые мы будем обсуждать в глава 6 и 17);
 - первый параметр всегда `self`, который представляет ссылку на экземпляр структуры.
 
 ### Определение методов
@@ -71,35 +72,36 @@ fn main() {
 > одним из немногих мест в Rust, в котором есть такой функционал.
 >
 > Как это работает: когда вы вызываете метод `object.something()`, Rust автоматически
-> добавляет `&`, `&mut`, or `*` так  чтообы `object` имет соответсующеие опции
+> добавляет `&`, `&mut`, или `*` так  чтообы `object` имет соответсующеие опции
 > Другими словами, строки *p1.distance(&p2);* *(&p1).distance(&p2);* эквивалентны:
 >
->```rust
->#[derive(Debug,Copy,Clone)]
->struct Point {
->   x: f64,
+> ```rust
+> #[derive(Debug,Copy,Clone)]
+> struct Point {
+>     x: f64,
 >     y: f64,
 > }
 >
 > impl Point {
->    fn distance(&self, other: &Point) -> f64 {
->        let x_squared = f64::powi(other.x - self.x, 2);
->        let y_squared = f64::powi(other.y - self.y, 2);
+>     fn distance(&self, other: &Point) -> f64 {
+>         let x_squared = f64::powi(other.x - self.x, 2);
+>         let y_squared = f64::powi(other.y - self.y, 2);
 >
->        f64::sqrt(x_squared + y_squared)
->    }
+>         f64::sqrt(x_squared + y_squared)
+>     }
 > }
+>
 > fn main(){
-> let p1 = Point { x: 0.0, y: 0.0 };
-> let p2 = Point { x: 5.0, y: 6.5 };
-> p1.distance(&p2);
-> (&p1).distance(&p2);
+>     let p1 = Point { x: 0.0, y: 0.0 };
+>     let p2 = Point { x: 5.0, y: 6.5 };
+>     p1.distance(&p2);
+>     (&p1).distance(&p2);
 > }
 >
-```
+> ```
 
-Первый вариант *p1.distance(&p2);* выглядит давольно-таки понятно.
-Компилятор Rust может по определить, что можно делать с переменной переменной
+Первый вариант `p1.distance(&p2);` выглядит давольно-таки понятно.
+Компилятор Rust способен определить, что можно делать с переменной
 (читать значение (`&self`), изменять содержание (`&mut self`) или сохранять значение (`self`) ).
 Тот факт, что опсание владения происходит неявно, делать код программы более компактным.
 
@@ -147,22 +149,22 @@ struct Rectangle {
 }
 
 impl Rectangle {
-   fn area(&self) -> u32 {
-       self.length * self.width
-   }
+    fn area(&self) -> u32 {
+        self.length * self.width
+    }
 
-   fn can_hold(&self, other: &Rectangle) -> bool {
-       self.length > other.length && self.width > other.width
-   }
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.length > other.length && self.width > other.width
+    }
 }
 
 fn main(){
-let rect1 = Rectangle { length: 50, width: 30 };
-   let rect2 = Rectangle { length: 40, width: 10 };
-   let rect3 = Rectangle { length: 45, width: 60 };
-   println!("area of rect1 = {}", rect1.area());
-   println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
-   println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
+    let rect1 = Rectangle { length: 50, width: 30 };
+    let rect2 = Rectangle { length: 40, width: 10 };
+    let rect3 = Rectangle { length: 45, width: 60 };
+    println!("area of rect1 = {}", rect1.area());
+    println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
+    println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
 }
 
 ```
@@ -187,11 +189,11 @@ let rect1 = Rectangle { length: 50, width: 30 };
 <span class="filename">Filename: src/main.rs</span>
 
 ```rust
- #[derive(Debug)]
- struct Rectangle {
-     length: u32,
-     width: u32,
- }
+#[derive(Debug)]
+struct Rectangle {
+    length: u32,
+    width: u32,
+}
 
 impl Rectangle {
     fn square(size: u32) -> Rectangle {
@@ -208,27 +210,28 @@ struct Rectangle {
 }
 
 impl Rectangle {
-   fn area(&self) -> u32 {
-       self.length * self.width
-   }
+    fn area(&self) -> u32 {
+        self.length * self.width
+    }
 
-   fn can_hold(&self, other: &Rectangle) -> bool {
-       self.length > other.length && self.width > other.width
-   }
-   fn square(size: u32) -> Rectangle {
-       Rectangle { length: size, width: size }
-   }
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.length > other.length && self.width > other.width
+    }
+
+    fn square(size: u32) -> Rectangle {
+        Rectangle { length: size, width: size }
+    }
 }
 
 fn main(){
 let rect1 = Rectangle { length: 50, width: 30 };
-   let rect2 = Rectangle { length: 40, width: 10 };
-   let rect3 = Rectangle { length: 45, width: 60 };
-   println!("area of rect1 = {}", rect1.area());
-   println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
-   println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
-   let rect4 = Rectangle::square(50);
-   println!("area of rect4 = {}", rect4.area());
+    let rect2 = Rectangle { length: 40, width: 10 };
+    let rect3 = Rectangle { length: 45, width: 60 };
+    println!("area of rect1 = {}", rect1.area());
+    println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
+    println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
+    let rect4 = Rectangle::square(50);
+    println!("area of rect4 = {}", rect4.area());
 }
 
 ```
@@ -259,6 +262,7 @@ impl Rectangle {
         self.length > other.length && self.width > other.width
     }
 }
+
 impl Rectangle {
     fn square(size: u32) -> Rectangle {
         Rectangle {
