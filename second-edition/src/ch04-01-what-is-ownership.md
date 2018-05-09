@@ -214,7 +214,7 @@ let s2 = s1;
 Хотя код внешне выглядит таким же, алгоритм работы совсем иной.
 
 Для более подробного объяснения давайте рассмотрим структуру `String` (рисунок 4-3).
-`String` состоит из трёх частей: ссылки а память, которая содержит данные, длину
+`String` состоит из трёх частей: ссылки на память, которая содержит данные, длину
 и ёмкость. Эта группа данных сохраняется в стеке. Справа память кучи, которая
 содержит данные.
 
@@ -347,7 +347,7 @@ println!("x = {}, y = {}", x, y);
 В Rust есть специальная аннотация `Copy` типаж, благодаря которой любой тип может
 быть сохранён в стеке. Если тип имеет типаж `Copy`, переменные которые владели данными
 до текущей переменной остаются доступными. Rust имеет следующие ограничения: тип не может
-одновременно иметь типаж `Copy` и `Drop`. Любая группа скалярных значений может быть
+иметь типаж `Copy` и `Drop`. Любая группа скалярных значений может быть
 `Copy`.
 
 Список типов, которые имею типаж `Copy`:
@@ -368,27 +368,27 @@ println!("x = {}, y = {}", x, y);
 
 ```rust
 fn main() {
-    let s = String::from("hello");  // s comes into scope.
+    let s = String::from("hello");  // s входит в область видимости.
 
-    takes_ownership(s);             // s's value moves into the function...
-    //println!("{}", s);    // ... and so is no longer valid here.
-    let x = 5;                      // x comes into scope.
+    takes_ownership(s);             // значением s овладевает функция.
+    //println!("{}", s);    // ... и поэтому здесь это не работает.
+    let x = 5;                      // x входит в область видимости.
 
-    makes_copy(x);                  // x would move into the function,
-    println!("{}", x);              // but i32 is Copy, so it’s okay to still
+    makes_copy(x);                  // x хотел бы перейти в функцию,
+    println!("{}", x);              // но в i32 есть типаж `Copy`, так что все хорошо.
                                     // use x afterward.
 
-} // Here, x goes out of scope, then s. But since s's value was moved, nothing
+} // Здесь x и s выходят из области видиомости. Но т.к. значение s было перемещено, ничего.
   // special happens.
 
-fn takes_ownership(some_string: String) { // some_string comes into scope.
+fn takes_ownership(some_string: String) { // some_string входит в область видиомости.
     println!("{}", some_string);
-} // Here, some_string goes out of scope and `drop` is called. The backing
+} // Здесь x some_string вышел из области видимости и вызван `drop`. The backing
   // memory is freed.
 
-fn makes_copy(some_integer: i32) { // some_integer comes into scope.
+fn makes_copy(some_integer: i32) { // some_integer входит в область видимости.
     println!("{}", some_integer);
-} // Here, some_integer goes out of scope. Nothing special happens.
+} // some_integer вышел из области видимости. Ничего необычного.
 ```
 
 <span class="caption">Listing 4-7: Демонстрация изменения владения посредством передачи
@@ -411,7 +411,7 @@ fn main() {
     let s1: String = gives_ownership();
     println!("{}",s1);                       // takes_and_gives_back, which also                                    // value into s1.
 
-    let s2 = String::from("hello");     // s2 comes into scope.
+    let s2 = String::from("hello");     // s2 входит в область видимости.
 
     let s3 = takes_and_gives_back(s2);  // s2 is moved into
     //println!("{}",s2);                                    // takes_and_gives_back, which also
