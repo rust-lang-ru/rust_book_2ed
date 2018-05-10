@@ -103,7 +103,7 @@ s.len()
 fn main() {
     let mut s = String::from("hello world");
 
-    let word = first_word(&s); // Слово получит значение 5.
+    let word = first_word(&s); // `word` получит значение 5.
 
     s.clear(); // Здесь очищается строка, делая её равной "".
 
