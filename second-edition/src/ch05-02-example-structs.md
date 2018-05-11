@@ -12,17 +12,17 @@
 
 ```rust
 fn main() {
-    let length1 = 50;
+    let height1 = 50;
     let width1 = 30;
 
     println!(
         "The area of the rectangle is {} square pixels.",
-        area(length1, width1)
+        area(height1, width1)
     );
 }
 
-fn area(length: u32, width: u32) -> u32 {
-    length * width
+fn area(height: u32, width: u32) -> u32 {
+    height * width
 }
 ```
 
@@ -43,7 +43,7 @@ The area of the rectangle is 1500 square pixels.
 Задача этого метода описана в названии:
 
 ```rust,ignore
-fn area(length: u32, width: u32) -> u32 {
+fn area(heighth: u32, width: u32) -> u32 {
 ```
 
 Функция `area` расчитывает площадь одного прямоугольника, но в функцию вводятся
@@ -87,12 +87,12 @@ fn area(dimensions: (u32, u32)) -> u32 {
 
 ```rust
 struct Rectangle {
-    length: u32,
+    height: u32,
     width: u32,
 }
 
 fn main() {
-    let rect1 = Rectangle { length: 50, width: 30 };
+    let rect1 = Rectangle { height: 50, width: 30 };
 
     println!(
         "The area of the rectangle is {} square pixels.",
@@ -101,7 +101,7 @@ fn main() {
 }
 
 fn area(rectangle: &Rectangle) -> u32 {
-    rectangle.length * rectangle.width
+    rectangle.height * rectangle.width
 }
 ```
 
@@ -109,12 +109,12 @@ fn area(rectangle: &Rectangle) -> u32 {
 
 ```rust
 struct Rectangle {
-    length: u32,
+    height: u32,
     width: u32,
 }
 
 fn main() {
-    let rect1 = &(Rectangle { length: 50, width: 30 });
+    let rect1 = &(Rectangle { height: 50, width: 30 });
 
     println!(
         "The area of the rectangle is {} square pixels.",
@@ -123,14 +123,14 @@ fn main() {
 }
 
 fn area(rectangle: &Rectangle) -> u32 {
-    rectangle.length * rectangle.width
+    rectangle.height * rectangle.width
 }
 ```
 
 <span class="caption">Пример 5-10: Определение структуры `Rectangle`</span>
 
 Мы определяем и именуем структуру `Rectangle`. Внутри фигурных скобок `{}` мы
-определяем поля `length` и `width`, который имеют тип данны `u32`. Далее, в
+определяем поля `height` и `width`, который имеют тип данны `u32`. Далее, в
 методе `main` мы создаём экземпляр `Rectangle`, который имеет длину 50 и ширину 30.
 
 Функция `area` также как и при работе с кортежем, использует один именованный параметр,
@@ -153,12 +153,12 @@ fn area(rectangle: &Rectangle) -> u32 {
 
 ```rust,ignore
 struct Rectangle {
-    length: u32,
+    height: u32,
     width: u32,
 }
 
 fn main() {
-    let rect1 = Rectangle { length: 50, width: 30 };
+    let rect1 = Rectangle { height: 50, width: 30 };
 
     println!("rect1 is {}", rect1);
 }
@@ -189,12 +189,12 @@ note: `Rectangle` cannot be formatted with the default formatter; try using
 
 ```rust,ignore
 struct Rectangle {
-    length: u32,
+    height: u32,
     width: u32,
 }
 
 fn main() {
-    let rect1 = Rectangle { length: 50, width: 30 };
+    let rect1 = Rectangle { height: 50, width: 30 };
 
     println!("rect1 is {:?}", rect1);
 }
@@ -228,12 +228,12 @@ Rust даёт возможность напечатать отладочную �
 ```rust
 #[derive(Debug)]
 struct Rectangle {
-    length: u32,
+    height: u32,
     width: u32,
 }
 
 fn main() {
-    let rect1 = Rectangle { length: 50, width: 30 };
+    let rect1 = Rectangle { height: 50, width: 30 };
 
     println!("rect1 is {:?}", rect1);
 }
@@ -245,7 +245,7 @@ fn main() {
 Теперь ошибок компиляции не будет. Ура!
 
 ```text
-rect1 is Rectangle { length: 50, width: 30 }
+rect1 is Rectangle { height: 50, width: 30 }
 ```
 
 Это, конечно, не самый лучший способ представления информации, но для отладки подойдёт.
@@ -255,12 +255,12 @@ rect1 is Rectangle { length: 50, width: 30 }
 ```rust
 #[derive(Debug)]
 struct Rectangle {
-    length: u32,
+    height: u32,
     width: u32,
 }
 
 fn main() {
-    let rect1 = Rectangle { length: 50, width: 30 };
+    let rect1 = Rectangle { height: 50, width: 30 };
 
     println!("rect1 is {:#?}", rect1);
 }
@@ -269,7 +269,7 @@ fn main() {
 
 ```text
 rect1 is Rectangle {
-    length: 50,
+    height: 50,
     width: 30
 }
 ```
