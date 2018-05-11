@@ -383,7 +383,7 @@ fn main() {
 
 fn takes_ownership(some_string: String) { // some_string входит в область видиомости.
     println!("{}", some_string);
-} // Здесь x some_string вышел из области видимости и вызван `drop`. The backing
+} // Здесь some_string вышел из области видимости и вызван `drop`. The backing
   // memory is freed.
 
 fn makes_copy(some_integer: i32) { // some_integer входит в область видимости.
