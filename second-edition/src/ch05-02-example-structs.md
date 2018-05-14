@@ -12,17 +12,17 @@
 
 ```rust
 fn main() {
-    let height1 = 50;
-    let width1 = 30;
+    let width1 = 50;
+    let height1 = 30;
 
     println!(
         "The area of the rectangle is {} square pixels.",
-        area(height1, width1)
+        area(width1, height1)
     );
 }
 
-fn area(height: u32, width: u32) -> u32 {
-    height * width
+fn area(width: u32, height1: u32) -> u32 {
+    width * height
 }
 ```
 
@@ -43,7 +43,7 @@ The area of the rectangle is 1500 square pixels.
 Задача этого метода описана в названии:
 
 ```rust,ignore
-fn area(heighth: u32, width: u32) -> u32 {
+fn area(width: u32, height: u32) -> u32 {
 ```
 
 Функция `area` расчитывает площадь одного прямоугольника, но в функцию вводятся
@@ -56,7 +56,7 @@ fn area(heighth: u32, width: u32) -> u32 {
 
 ```rust
 fn main() {
-    let rect1 = (50, 30);
+    let rect1 = (30, 50);
 
     println!(
         "The area of the rectangle is {} square pixels.",
@@ -71,7 +71,7 @@ fn area(dimensions: (u32, u32)) -> u32 {
 
 <span class="caption">Пример 5-8: Определени длины и ширины в кортеже</span>
 
-Программа стала более понятной и структурированной. Но всёже есть проблема -
+Программа стала более понятной и структурированной. Но всё же есть проблема -
 элемены кортежа - это безымянные индексы.
 
 Это хорошо, что не важно в каком порядке в кортеже переменные, но если будет нужно
@@ -87,12 +87,12 @@ fn area(dimensions: (u32, u32)) -> u32 {
 
 ```rust
 struct Rectangle {
-    height: u32,
     width: u32,
+    height: u32,
 }
 
 fn main() {
-    let rect1 = Rectangle { height: 50, width: 30 };
+    let rect1 = Rectangle { height: 30, width: 50 };
 
     println!(
         "The area of the rectangle is {} square pixels.",
@@ -114,7 +114,7 @@ struct Rectangle {
 }
 
 fn main() {
-    let rect1 = &(Rectangle { height: 50, width: 30 });
+    let rect1 = &(Rectangle { height: 30, width: 50 });
 
     println!(
         "The area of the rectangle is {} square pixels.",
@@ -153,12 +153,12 @@ fn area(rectangle: &Rectangle) -> u32 {
 
 ```rust,ignore
 struct Rectangle {
-    height: u32,
     width: u32,
+    height: u32,
 }
 
 fn main() {
-    let rect1 = Rectangle { height: 50, width: 30 };
+    let rect1 = Rectangle { height: 30, width: 50 };
 
     println!("rect1 is {}", rect1);
 }
@@ -185,55 +185,25 @@ note: `Rectangle` cannot be formatted with the default formatter; try using
 `:?` instead if you are using a format string
 ```
 
+Rust включает в себя функциональность вывода дебаг-информации(то есть более подробной), и
+чтобы этим воспользоваться, напишем ` #[derive(Debug)]` перед структурой.
+
 Попробуем им воспользоваться. Изменим код соответствующим образом:
-
-```rust,ignore
-struct Rectangle {
-    height: u32,
-    width: u32,
-}
-
-fn main() {
-    let rect1 = Rectangle { height: 50, width: 30 };
-
-    println!("rect1 is {:?}", rect1);
-}
-```
-
-Мы использовали вывод поведение `Debug`, которое позволяет нам напечатать содержание
-структуры по умолчанию.
-
-Выполнив это код также получим сообщение об ошибке компиляции:
-
-```text
-error: the trait bound `Rectangle: std::fmt::Debug` is not satisfied
-```
-
-Но, как и в прошлый раз компилятор спешит к нам на помощь и даёт ценные и важные
-указания:
-
-```text
-note: `Rectangle` cannot be formatted using `:?`; if it is defined in your
-crate, add `#[derive(Debug)]` or manually implement it
-```
-
-Rust даёт возможность напечатать отладочную информацию, но для этого нам надо
-явно описать это поведение. Для это необходимо аннотировать определение структуры
-следующим текстом `#[derive(Debug)]`.
 
 Пример 5-12:
 
 <span class="filename">Filename: src/main.rs</span>
 
-```rust
-#[derive(Debug)]
+
+```rust,ignore
+ #[derive(Debug)]
 struct Rectangle {
-    height: u32,
     width: u32,
+    height: u32,
 }
 
 fn main() {
-    let rect1 = Rectangle { height: 50, width: 30 };
+    let rect1 = Rectangle { height: 30, width: 50 };
 
     println!("rect1 is {:?}", rect1);
 }
@@ -241,6 +211,9 @@ fn main() {
 
 <span class="caption">Listing 5-12: Добавление аннтации для использования поведения
 `Debug`</span>
+
+Мы использовали вывод поведение `Debug`, которое позволяет нам напечатать содержание
+структуры по умолчанию.
 
 Теперь ошибок компиляции не будет. Ура!
 
