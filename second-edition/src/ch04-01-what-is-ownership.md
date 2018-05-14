@@ -379,12 +379,12 @@ fn main() {
                                     // use x afterward.
 
 } // Здесь x и s выходят из области видиомости. Но т.к. значение s было перемещено, ничего.
-  // special happens.
+  // Специально происходит.
 
 fn takes_ownership(some_string: String) { // some_string входит в область видиомости.
     println!("{}", some_string);
-} // Здесь some_string вышел из области видимости и вызван `drop`. The backing
-  // memory is freed.
+} // Здесь some_string вышел из области видимости и вызван `drop`. Выход.
+  // память освобождается.
 
 fn makes_copy(some_integer: i32) { // some_integer входит в область видимости.
     println!("{}", some_integer);
