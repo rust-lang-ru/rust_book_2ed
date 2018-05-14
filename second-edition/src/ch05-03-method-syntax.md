@@ -21,18 +21,18 @@
 ```rust
 #[derive(Debug)]
 struct Rectangle {
-    length: u32,
     width: u32,
+    height: u32,
 }
 
 impl Rectangle {
     fn area(&self) -> u32 {
-        self.length * self.width
+        self.width * self.height
     }
 }
 
 fn main() {
-    let rect1 = Rectangle { length: 50, width: 30 };
+    let rect1 = Rectangle { width: 30, height: 50 };
 
     println!(
         "The area of the rectangle is {} square pixels.",
@@ -74,8 +74,13 @@ fn main() {
 >
 > Как это работает: когда вы вызываете метод `object.something()`, Rust автоматически
 > добавляет `&`, `&mut`, или `*` так, чтобы `object` имет соответсующеие опции
-> Другими словами, строки *p1.distance(&p2);* *(&p1).distance(&p2);* эквивалентны:
+> Другими словами, строки 
 >
+>``` p1.distance(&p2);
+>   (&p1).distance(&p2); 
+>```
+>эквивалентны
+
 >```rust
 >#[derive(Debug,Copy,Clone)]
 >struct Point {
@@ -117,9 +122,9 @@ fn main() {
 
 ```rust,ignore
 fn main() {
-    let rect1 = Rectangle { length: 50, width: 30 };
-    let rect2 = Rectangle { length: 40, width: 10 };
-    let rect3 = Rectangle { length: 45, width: 60 };
+    let rect1 = Rectangle { width: 50, length: 30 };
+    let rect2 = Rectangle { width: 40, length: 10 };
+    let rect3 = Rectangle { width: 60, length: 45 };
 
     println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
     println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
@@ -144,29 +149,28 @@ Can rect1 hold rect3? false
 ```rust
 #[derive(Debug)]
 struct Rectangle {
-    length: u32,
     width: u32,
+    height: u32,
 }
 
 impl Rectangle {
    fn area(&self) -> u32 {
-       self.length * self.width
+       self.width * self.height
    }
 
    fn can_hold(&self, other: &Rectangle) -> bool {
-       self.length > other.length && self.width > other.width
+       self.width > other.width && self.height > other.height
    }
 }
 
 fn main(){
-let rect1 = Rectangle { length: 50, width: 30 };
-   let rect2 = Rectangle { length: 40, width: 10 };
-   let rect3 = Rectangle { length: 45, width: 60 };
-   println!("area of rect1 = {}", rect1.area());
-   println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
-   println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
+    let rect1 = Rectangle { width: 30, height: 50 };
+    let rect2 = Rectangle { width: 10, height: 40 };
+    let rect3 = Rectangle { width: 60, height: 45 };
+    println!("area of rect1 = {}", rect1.area());
+    println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
+    println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
 }
-
 ```
 
 <span class="caption">Listing 5-15: Реализация метода `can_hold` `Rectangle`,
@@ -191,13 +195,13 @@ let rect1 = Rectangle { length: 50, width: 30 };
 ```rust
  #[derive(Debug)]
  struct Rectangle {
-     length: u32,
      width: u32,
- }
+     height: u32,
+}
 
 impl Rectangle {
     fn square(size: u32) -> Rectangle {
-        Rectangle { length: size, width: size }
+         Rectangle { width: size, height: size }
     }
 }
 ```
@@ -205,32 +209,32 @@ impl Rectangle {
 ```rust
 #[derive(Debug)]
 struct Rectangle {
-    length: u32,
+    height: u32,
     width: u32,
 }
 
 impl Rectangle {
    fn area(&self) -> u32 {
-       self.length * self.width
+       self.width * self.height
    }
 
    fn can_hold(&self, other: &Rectangle) -> bool {
-       self.length > other.length && self.width > other.width
+       self.width > other.width && self.height > other.height
    }
    fn square(size: u32) -> Rectangle {
-       Rectangle { length: size, width: size }
+         Rectangle { width: size, height: size }
    }
 }
 
 fn main(){
-let rect1 = Rectangle { length: 50, width: 30 };
-   let rect2 = Rectangle { length: 40, width: 10 };
-   let rect3 = Rectangle { length: 45, width: 60 };
-   println!("area of rect1 = {}", rect1.area());
-   println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
-   println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
-   let rect4 = Rectangle::square(50);
-   println!("area of rect4 = {}", rect4.area());
+    let rect1 = Rectangle { width: 30, height: 50 };
+    let rect2 = Rectangle { width: 10, height: 40 };
+    let rect3 = Rectangle { width: 60, height: 45 };
+    println!("area of rect1 = {}", rect1.area());
+    println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
+    println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
+    let rect4 = Rectangle::square(50);
+    println!("area of rect4 = {}", rect4.area());
 }
 
 ```
@@ -246,41 +250,41 @@ let rect1 = Rectangle { length: 50, width: 30 };
 ```rust
 #[derive(Debug)]
 struct Rectangle {
-    length: u32,
-    width: u32,
+     width: u32,
+     height: u32,
 }
 
 impl Rectangle {
     fn area(&self) -> u32 {
-        self.length * self.width
-    }
+       self.width * self.height
+   }
 }
 
 impl Rectangle {
     fn can_hold(&self, other: &Rectangle) -> bool {
-        self.length > other.length && self.width > other.width
-    }
+       self.width > other.width && self.height > other.height
+   }
 }
 impl Rectangle {
     fn square(size: u32) -> Rectangle {
-        Rectangle {
-            length: size,
-            width: size,
-        }
+         Rectangle { 
+            width: size, 
+            height: size 
+        }    
     }
 }
 fn main() {
     let rect1 = Rectangle {
-        length: 50,
-        width: 30,
+        width: 50,
+        height: 30,
     };
     let rect2 = Rectangle {
-        length: 40,
-        width: 10,
+        width: 40,
+        height: 10,
     };
     let rect3 = Rectangle {
-        length: 45,
-        width: 60,
+        width: 45,
+        height: 60,
     };
     println!("area of rect1 = {}", rect1.area());
     println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
