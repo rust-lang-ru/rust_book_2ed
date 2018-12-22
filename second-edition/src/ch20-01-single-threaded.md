@@ -554,7 +554,7 @@ makes it so that we only have one place to update the code if we want to change
 how the file reading and response writing works. The behavior of the code in
 Listing 20-9 will be exactly the same as that in Listing 20-8.
 
-Отлично! Мы реализовали простейший веб-сервер и уложилисьв 40 строчек кода. Мы
+Отлично! Мы реализовали простейший веб-сервер и уложились в 40 строчек кода. Мы
 реализовали логичные ответ - если запрашивается страница - возвращаем страницу,
 если что-либо ещё - возвращаем страницу с информацией об ошибке `404`.
 
