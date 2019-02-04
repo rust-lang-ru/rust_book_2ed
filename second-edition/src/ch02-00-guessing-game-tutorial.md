@@ -337,7 +337,7 @@ io::stdin().read_line(&mut guess)
 [ioresult]: https://doc.rust-lang.org/std/io/type.Result.html
 [result]: https://doc.rust-lang.org/std/result/enum.Result.html
 
-Типами данных `Result` чаще всего является *перечисления* [enums]<!-- ignore -->
+Типами данных `Result` чаще всего являются *перечисления* [enums]<!-- ignore -->
 (*[enums]*). Это такой тип данных, который имеет фиксированный набор значений.
 В главе № 6 мы подробнее познакомится с этим типом данных.
 
