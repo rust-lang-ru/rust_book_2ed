@@ -9,16 +9,16 @@
 Пример:
 
 ```rust
-// Hello, world.
+// Здравствуй, мир.
 ```
 
 Самый простой вид комментария - это комментарий строки `//`. Он ставится там, где
 вся последующая строка текста должна быть игнорирована компилятором:
 
 ```rust
-// So we’re doing something complicated here, long enough that we need
-// multiple lines of comments to do it! Whew! Hopefully, this comment will
-// explain what’s going on.
+// Здесь мы делаем что-то очень сложное и достаточно длинное для того, чтобы
+// использовать многострочный комментарий. Фух! К счастью, этот комментарий
+// объясняет что здесь происходит.
 ```
 
 Ещё пример:
@@ -27,7 +27,7 @@
 
 ```rust
 fn main() {
-    let lucky_number = 7; // I’m feeling lucky today.
+    let lucky_number = 7; // Сегодня я чувствую себя счастливым
 }
 ```
 Ещё пример (комментарий-аннотация):
@@ -36,7 +36,7 @@ fn main() {
 
 ```rust
 fn main() {
-    // I’m feeling lucky today.
+    // Сегодня я чувствую себя счастливым
     let lucky_number = 7;
 }
 ```
