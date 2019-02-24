@@ -259,7 +259,7 @@ let y: Option<i8> = Some(5);
 let sum = x + y;
 ```
 
-Оприсание ошибки:
+Описание ошибки:
 
 ```text
 error[E0277]: the trait bound `i8: std::ops::Add<std::option::Option<i8>>` is
