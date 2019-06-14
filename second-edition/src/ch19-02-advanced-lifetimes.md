@@ -10,8 +10,8 @@
 необходимо создать структуру, экземпляры которой будут хранить ссылки на строку, которую
 мы анализируем. Назовём эту структуру `Context`. Мы создадим анализатор, который
 будет анализировать эту строку и возвращать индикатор успеха или неудачи. Анализатору
-необходимо заимствовать сороку для анализа. Реализация может быть похожа на код
-19-12, который не скомпилируется, т.к. мы не указали МВЖ:
+необходимо заимствовать строку для анализа. Реализация может быть похожа на код
+19-12, который не компилируется, т.к. мы не указали МВЖ:
 
 ```rust,ignore
 struct Context(&str);
@@ -54,7 +54,7 @@ impl<'a> Parser<'a> {
 
 <span class="caption">код 19-13: аннотирование ссылок в `Context` и `Parser`</span>
 
-Этот код скомпилируется. Следующий код (19-14) декларирует функцию, которая получает
+Этот код компилируется. Следующий код (19-14) декларирует функцию, которая получает
 входной параметр `Context` и используя `Parser` для анализа текста.
 
 ```rust,ignore
@@ -109,7 +109,7 @@ body at 15:55...
 Эти ошибки говорят, что время жизни `Parser`, который мы создаём и параметра метода
 заканчивается после завершения работы функции. Но они должны продолжать жить далее.
 
-Т.е. для `Parser` и `context` необходимо пережить ( *outlive*) работы функции и
+Т.е. `Parser` и `context` должны пережить ( *outlive* ) завершение функции и
 быть действительными после.
 
 Давайте рассмотрим определение функции `parse` в 19-13 снова. Обратим внимание на
@@ -188,19 +188,19 @@ note: but the referenced data is only valid for the lifetime 's as defined on th
   | |_^
 ```
 
-Rust doesn’t know of any relationship between `'c` and `'s`. In order to be
-valid, the referenced data in `Context` with lifetime `'s` needs to be
-constrained to guarantee that it lives longer than the reference to `Context`
-that has lifetime `'c`. If `'s` is not longer than `'c`, then the reference to
-`Context` might not be valid.
+Rust не знает как связаны между собой `'c` и `'s`. Для того, чтобы
+гарантировать, что ссылочные данные в `Context` со временем жизни `'s` допустимы,
+необходимо установить ограничение, чтобы компилятор знал, что они живут дольше,
+чем ссылка на `Context` со временем жизни `'c`. Если время жизни `'s` не длиннее `'c`,
+то ссылка на `Context` может быть не корректна.
 
-Which gets us to the point of this section: Rust has a feature called *lifetime
-subtyping*, which is a way to specify that one lifetime parameter lives at
-least as long as another one. In the angle brackets where we declare lifetime
-parameters, we can declare a lifetime `'a` as usual, and declare a lifetime
-`'b` that lives at least as long as `'a` by declaring `'b` with the syntax `'b:
-'a`.
 
+Что приводит нас к основной части этого раздела: В Rust есть механизм под названием *lifetime subtyping*,
+который является способом, чтобы указать, что один параметр времени жизни жив по
+крайней мере, пока жив другой параметр. В угловых скобках, где мы объявляем параметры времени жизни,
+мы можем объявить продолжительность жизни `'a` как обычно, и объявить параметр времени жизни
+`'b`, который живет по крайней мере до тех пор, пока существует `'a`.
+Параметр времени жизни `'b` записывается с синтаксисом `'b`: `'a`.
 
 Для того, чтобы сообщить компилятору, что время жизни `'s` будет не меньше времени
 жизни `'c`, мы изменим описание структуры следующим образом:
@@ -213,11 +213,11 @@ struct Parser<'c, 's: 'c> {
 }
 ```
 
-Теперь всё в порядке. Такие особенности применяются не часть, но всё же бывают.
+Теперь всё в порядке. Такие особенности применяются не часто, но всё же бывают.
 
 ### Границы времени жизни переменных
 
-В главе 10 мы обсуждали как использовать границы в типажах обобщенных типах.
+В главе 10 мы обсуждали как использовать времена жизни в типажах обобщенных типов.
 Мы можем также добавить параметры времени жизни как ограничения в обобщенные типы.
 Например, рассмотрим тип, который является оболочкой для ссылок. Вспомним тип
 `RefCell<T>` из главы 15: он имеет методы `borrow` и `borrow_mut`, которые возвращают
@@ -251,7 +251,7 @@ note: ...so that the reference type `&'a T` does not outlive the data it points 
 Т.к. `T` может быть любым типом, `T` сам может быть ссылкой или типом содержащим
 ссылки. Поэтому компилятор не может определить время жизни `T`.
 
-Для решения этой задачу в Rust есть подсказка:
+Для решения этой задачи в Rust есть подсказка:
 
 ```text
 consider adding an explicit lifetime bound `T: 'a` so that the reference type
@@ -277,16 +277,12 @@ struct StaticRef<T: 'static>(&'static T);
 <span class="caption">код 19-18: добавление `'static` время жизни для `T` для
 введения ограничения `T`</span>
 
-
-Types without any references count as `T: 'static`. Because `'static` means the
-reference must live as long as the entire program, a type that contains no
-references meets the criteria of all references living as long as the entire
-program (since there are no references). Think of it this way: if the borrow
-checker is concerned about references living long enough, then there’s no real
-distinction between a type that has no references and a type that has
-references that live forever; both of them are the same for the purpose of
-determining whether or not a reference has a shorter lifetime than what it
-refers to.
+Типы без каких-либо ссылок считаются типами со статическим временем жизни `T: 'static`.
+Время жизни `'static` означает, что ссылка должна жить до тех пор, пока программа не завершит свою работу,
+тип, который не содержит ссылок соответствует этим критериям, так как в скомпилированной программе нет ссылок.
+Подумайте об этом так: если borrow checker обеспокоен ссылками, живущими достаточно долго, тогда нет реального
+различия между типом, который не содержит ссылок и типами, ссылки на которые живут вечно.
+Оба они одинаковы для целей определения того, имеет ли ссылка более короткое время жизни, чем то, на что она ссылаться.
 
 ### Переменные времени жизни объектов-типажей
 
