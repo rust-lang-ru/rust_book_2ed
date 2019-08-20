@@ -1,28 +1,22 @@
 # Язык программирования Rust
 
-[![Build Status](https://travis-ci.org/rust-lang/book.svg?branch=master)](https://travis-ci.org/rust-lang/book)
-
 Данный репозиторий содержит перевод второго издания “Язык программирования Rust”. 
 
 Второе издание - это переработанная книга "The Rust Programming Language", которая будет напечатана издательством "No Starch Press" ориентировочно в мае 2018 года. Последнюю информацию о дате выхода книги и о способе ее заказа вы можете узнать на официальном сайте издательства [No Starch Press][nostarch].
 
 [nostarch]: https://nostarch.com/rust
 
-Книгу можно [читать онлайн](https://rustbook.kinoher.ml/).
+Книгу можно [читать онлайн](https://rustycrate.ru/book).
 
 Оригинал книги вы можете прочесть [онлайн][html]; несколько последних глав еще не закончены, но готовая часть книги заметно улучшена по сравнению с первым изданием. Авторы оригинальной книги рекомендуют начать чтение со второго издания.
 
 [html]: http://rust-lang.github.io/book/
 
-[Первое издание все еще доступно к прочтению онлайн][first].
-
-[first]: https://doc.rust-lang.org/book/
-
 ## Требования
 
 Для сборки книги требуется [mdBook] >= v0.0.13. Для установки выполните команду:
 
-[mdBook]: https://github.com/azerupi/mdBook
+[mdBook]: https://github.com/rust-lang-nursery/mdBook/
 
 ```bash
 $ cargo install mdbook
